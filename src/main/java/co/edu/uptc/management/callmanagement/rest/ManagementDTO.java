@@ -24,7 +24,7 @@ public class ManagementDTO {
 	public static Map<String, CallInfo> callInfo = new HashMap<>();
 	public static List<Double> costos = new ArrayList<>();
 	public static List<Double> minutos = new ArrayList<>();
-
+	public  static List<CallDTO> callDTOS2 = new ArrayList<>();
 
 	/**
 	 * @author monx.voll
@@ -125,36 +125,51 @@ public class ManagementDTO {
 	@Path("/getCall")
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
-	public CallDTO getCallsByFilter(CallDTO callDTO) {
-		CallDTO dataInfoObject = null;
+	public List<CallDTO> getCallsByFilter(CallDTO callDTO) {
+		callDTOS2.clear();
 		for (CallDTO callDTO1 : getCallDTOS()) {
 			if (!Objects.isNull(callDTO.getCallId())) {
-				if(callDTO1.getCallId().equals(callDTO.getCallId())) {
-					dataInfoObject = callDTO1;
-				}
-			} else if (!Objects.isNull(callDTO.getCallType())) {
-				if(callDTO1.getCallType().equals(callDTO.getCallType())){
-					dataInfoObject = callDTO1;
-				}
-			} else if (!Objects.isNull(callDTO.getCallDuration())) {
-				if(callDTO1.getCallDuration().equals(callDTO.getCallDuration())){
-					dataInfoObject = callDTO1;
-				}
-			} else if (!Objects.isNull(callDTO.getMinuteValue())) {
-				if(callDTO1.getMinuteValue().equals(callDTO.getMinuteValue())){
-					dataInfoObject = callDTO1;
-				}
-			} else if (!Objects.isNull(callDTO.getPhoneDestiny())) {
-				if(callDTO1.getPhoneDestiny().equals(callDTO.getPhoneDestiny())){
-					dataInfoObject = callDTO1;
-				}
-			} else if (!Objects.isNull(callDTO.getPhoneNumber())) {
-				if(callDTO1.getPhoneNumber().equals(callDTO.getPhoneNumber())){
-					dataInfoObject = callDTO1;
+				if (callDTO1.getCallId().equals(callDTO.getCallId())) {
+					callDTOS2.add(callDTO1);
 				}
 			}
 		}
-		return dataInfoObject;
+		for (CallDTO callDTO1 : getCallDTOS()) {
+			if (!Objects.isNull(callDTO.getCallType())) {
+				if (callDTO1.getCallType().equals(callDTO.getCallType())) {
+					callDTOS2.add(callDTO1);
+				}
+			}
+		}
+		for (CallDTO callDTO1 : getCallDTOS()) {
+			if (!Objects.isNull(callDTO.getCallDuration())) {
+				if (callDTO1.getCallDuration().equals(callDTO.getCallDuration())) {
+					callDTOS2.add(callDTO1);
+				}
+			}
+		}
+		for (CallDTO callDTO1 : getCallDTOS()) {
+			if (!Objects.isNull(callDTO.getMinuteValue())) {
+				if (callDTO1.getMinuteValue().equals(callDTO.getMinuteValue())) {
+					callDTOS2.add(callDTO1);
+				}
+			}
+		}
+		for (CallDTO callDTO1 : getCallDTOS()) {
+			if (!Objects.isNull(callDTO.getPhoneDestiny())) {
+				if (callDTO1.getPhoneDestiny().equals(callDTO.getPhoneDestiny())) {
+					callDTOS2.add(callDTO1);
+				}
+			}
+		}
+		for (CallDTO callDTO1 : getCallDTOS()) {
+			if (!Objects.isNull(callDTO.getPhoneNumber())) {
+				if (callDTO1.getPhoneNumber().equals(callDTO.getPhoneNumber())) {
+					callDTOS2.add(callDTO1);
+				}
+			}
+		}
+		return getCallDTOS2();
 	}
 
 
@@ -171,19 +186,19 @@ public class ManagementDTO {
 			case OTRO:
 				//20 % de 200 por ejemplo =  20/100 x 200 = 40
 				//5 % del precio en este caso
-				excedentPrice = (5.0/100.0) * minuteValue;
+				excedentPrice = (5.0/100.0) * minuteValue*callDuration;
 				newPrice = price + excedentPrice;
 				break;
 			//Nacional
 			case NACIONAL:
 				//10 % del precio en este caso
-				excedentPrice = (10.0/100.0) * minuteValue;
+				excedentPrice = (10.0/100.0) * minuteValue*callDuration;
 				newPrice = price + excedentPrice;
 				break;
 			//Internacional
 			case INTERNACIONAL:
 				//15 % del precio en este caso
-				excedentPrice = (15.0/100.0) * minuteValue;
+				excedentPrice = (15.0/100.0) * minuteValue*callDuration;
 
 				newPrice = price + excedentPrice;
 				break;
@@ -231,6 +246,14 @@ public class ManagementDTO {
 
 	public static void setMinutos(List<Double> minutos) {
 		ManagementDTO.minutos = minutos;
+	}
+
+	public static List<CallDTO> getCallDTOS2() {
+		return callDTOS2;
+	}
+
+	public static void setCallDTOS2(List<CallDTO> callDTOS2) {
+		ManagementDTO.callDTOS2 = callDTOS2;
 	}
 }
 
