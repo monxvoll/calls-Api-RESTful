@@ -1,6 +1,6 @@
 # CallsApiRestFul
 
-Una API RESTful en Java para gestionar datos de llamadas realizadas desde números de teléfono móvil.
+Una API RESTful en Java para gestionar datos de llamadas realizadas desde un número de teléfono móvil.
 
 ## Funcionalidades
 
